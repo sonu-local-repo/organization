@@ -5,10 +5,8 @@
 #    gateway:
 #      routes:
 #      - id: userModule
-#        uri: http://localhost:8091/
+#        uri: http://localhost:8094/
 #        predicates:
-#        - Path=/user/**
-#      - id: consumerModule
-#        uri: http://localhost:8092/
-#        predicates:
-#        - Path=/consumer/**
+#          - Path=/user/**
+#        filters:
+#          - name: JWTFilter
