@@ -1,5 +1,6 @@
 package com.photapp.organization.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
@@ -45,7 +46,7 @@ public class Address {
     @Column(name = "UPDATED_BY")
     private int updatedBy;
 
-//    @JsonBackReference
+    @JsonBackReference
     @ManyToMany(mappedBy = "addresses",cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Employee> employees = new ArrayList<>();
 }

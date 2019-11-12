@@ -28,17 +28,18 @@ public class GatewayConfig {
         return routeLocatorBuilder.routes()
                 .route(r->r.path("/user/**")
                         .filters(f->f.filter(new JWTFilter(environment)))
-//                        .uri("lb://USER-SERVICE/")
-                        .uri("http://localhost:8094/")
-
+                        .uri("lb://USER-SERVICE/")
+//                        .uri("http://localhost:8094/")
                         .id("employeeModule"))
                 .route(r->r.path("/customer/**")
-                .uri("lb://CUSTOMER-SERVICE/")
+                        .uri("lb://CUSTOMER-SERVICE/")
                         .id("customer-service"))
+                .route(r->r.path("/api/v1/org/**")
+                        .uri("lb://ORGANIZATION-SERVICE/")
+                        .id("organization-service"))
                 .route(r->r.path("/**")
-//                        .uri("lb://USER-SERVICE/")
-                .uri("http://localhost:8094/")
-                .id("employeeModuleLogin"))
+                        .uri("lb://USER-SERVICE/")
+                        .id("employeeModuleLogin"))
                 .build();
     }
 }

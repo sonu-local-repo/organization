@@ -62,7 +62,7 @@ public class Employee {
 
 //    @JsonIgnore
 //    @JsonManagedReference
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name="EMPLOYEE_ADDRESS", joinColumns={@JoinColumn(referencedColumnName="id")}
             , inverseJoinColumns={@JoinColumn(referencedColumnName="id")})
     private List<Address> addresses = new ArrayList<>();
