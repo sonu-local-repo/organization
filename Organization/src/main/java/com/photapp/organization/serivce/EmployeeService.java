@@ -6,6 +6,7 @@ import com.photapp.organization.repository.EmployeeRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public class EmployeeService {
 
     @Autowired
     EmployeeRepository repository;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public List<EmployeeDTO> findAllEmployees() {
@@ -40,6 +43,7 @@ public class EmployeeService {
     public EmployeeDTO create(EmployeeDTO employeeModel) {
         ModelMapper modelMapper = new ModelMapper();
         Employee employee = modelMapper.map(employeeModel, Employee.class);
+        employee.setPassword(bCryptPasswordEncoder.encode(employeeModel.getPassword()));
         Employee newEmployee = repository.save(employee);
         return modelMapper.map(newEmployee, EmployeeDTO.class);
     }

@@ -35,10 +35,11 @@ public class GatewayConfig {
                         .uri("lb://CUSTOMER-SERVICE/")
                         .id("customer-service"))
                 .route(r->r.path("/api/v1/org/**")
+                        .filters(f->f.filter(new JWTFilter(environment)))
                         .uri("lb://ORGANIZATION-SERVICE/")
                         .id("organization-service"))
-                .route(r->r.path("/**")
-                        .uri("lb://USER-SERVICE/")
+                .route(r->r.path("/login/**")
+                        .uri("lb://ORGANIZATION-SERVICE/")
                         .id("employeeModuleLogin"))
                 .build();
     }

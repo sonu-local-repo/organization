@@ -38,7 +38,6 @@ public class JWTFilter extends AbstractGatewayFilterFactory<JWTFilter.Config> im
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        System.out.println("gateway filter");
         ServerHttpRequest request = exchange.getRequest().mutate().header("Added-header", "12")
                 .build();
         HttpHeaders values = exchange.getRequest().getHeaders();

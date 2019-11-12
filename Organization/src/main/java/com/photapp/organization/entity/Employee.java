@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Transactional
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "id")
@@ -63,9 +65,12 @@ public class Employee {
 //    @JsonIgnore
 //    @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name="EMPLOYEE_ADDRESS", joinColumns={@JoinColumn(referencedColumnName="id")}
-            , inverseJoinColumns={@JoinColumn(referencedColumnName="id")})
+/*    @JoinTable(name="EMPLOYEE_ADDRESS", joinColumns={@JoinColumn(referencedColumnName="id")}
+            , inverseJoinColumns={@JoinColumn(referencedColumnName="id")})*/
+    @JoinTable(name = "EMPLOYEE_ADDRESS", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
+            inverseJoinColumns = {@JoinColumn(name = "ADDRESS_ID")})
     private List<Address> addresses = new ArrayList<>();
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "EMPLOYEE_POSITION", joinColumns = @JoinColumn(name = "EMPLOYEE_ID"),
             inverseJoinColumns = {@JoinColumn(name = "POSITION_ID")})
